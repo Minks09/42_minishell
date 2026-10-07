@@ -1,0 +1,5 @@
+obj/
+*.o
+*.d
+*.a
+minishell

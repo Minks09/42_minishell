@@ -85,7 +85,7 @@ static void	wait_all(t_shell *sh)
 		cmd = cmd->next;
 	}
 	if (sig == SIGINT)
-		write(STDOUT_FILENO, "\n", 1);
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	else if (sig == SIGQUIT)
 		ft_putendl_fd("Quit (core dumped)", STDERR_FILENO);
 }

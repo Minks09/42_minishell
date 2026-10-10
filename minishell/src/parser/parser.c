@@ -24,10 +24,11 @@ static char	**list_to_arr(t_list **lst)
 	while (cur)
 	{
 		arr[i++] = cur->content;
+		cur->content = NULL;
 		cur = cur->next;
 	}
 	arr[i] = NULL;
-	ft_lstclear(lst, NULL);
+	ft_lstclear(lst, free);
 	return (arr);
 }
 

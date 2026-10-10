@@ -24,7 +24,7 @@ static void	sort_env(t_env **arr, int n)
 		j = 0;
 		while (j < n - i - 1)
 		{
-			if (ft_strcmp(arr[j]->key, arr[j + 1]->key) > 0)
+			if (ms_strcmp(arr[j]->key, arr[j + 1]->key) > 0)
 			{
 				tmp = arr[j];
 				arr[j] = arr[j + 1];
@@ -41,8 +41,8 @@ static void	print_escaped(char *s)
 	while (*s)
 	{
 		if (*s == '"' || *s == '\\' || *s == '$' || *s == '`')
-			write(STDOUT_FILENO, "\\", 1);
-		write(STDOUT_FILENO, s, 1);
+			ft_putchar_fd('\\', STDOUT_FILENO);
+		ft_putchar_fd(*s, STDOUT_FILENO);
 		s++;
 	}
 }
@@ -79,7 +79,7 @@ void	export_print(t_shell *sh)
 	i = 0;
 	while (i < n)
 	{
-		if (ft_strcmp(arr[i]->key, "_"))
+		if (ms_strcmp(arr[i]->key, "_"))
 			print_entry(arr[i]);
 		i++;
 	}

@@ -40,10 +40,10 @@ int	bi_echo(char **argv)
 	{
 		ft_putstr_fd(argv[i], STDOUT_FILENO);
 		if (argv[i + 1])
-			write(STDOUT_FILENO, " ", 1);
+			ft_putchar_fd(' ', STDOUT_FILENO);
 		i++;
 	}
 	if (newline)
-		write(STDOUT_FILENO, "\n", 1);
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	return (0);
 }

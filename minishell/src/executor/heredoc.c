@@ -52,7 +52,7 @@ static void	hd_child(t_shell *sh, t_redir *r, int fd, char *path)
 			hd_eof_warning(r->file);
 			break ;
 		}
-		if (!ft_strcmp(line, r->file))
+		if (!ms_strcmp(line, r->file))
 		{
 			free(line);
 			break ;
@@ -71,7 +71,7 @@ static int	hd_fail(t_shell *sh, pid_t pid, int st, int fd)
 	if (pid > 0 && WIFSIGNALED(st))
 		sh->status = 128 + WTERMSIG(st);
 	if (pid > 0 && WIFSIGNALED(st) && WTERMSIG(st) == SIGINT)
-		write(STDOUT_FILENO, "\n", 1);
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	return (0);
 }
 

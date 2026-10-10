@@ -19,7 +19,7 @@ static int	parse_exit_arg(char *s, long *out)
 
 	n = 0;
 	sign = 1;
-	while (ft_isspace(*s))
+	while (ms_isspace(*s))
 		s++;
 	if (*s == '-')
 		sign = -1;
@@ -34,7 +34,7 @@ static int	parse_exit_arg(char *s, long *out)
 			return (0);
 		n = n * 10 + sign * (*s++ - '0');
 	}
-	while (ft_isspace(*s))
+	while (ms_isspace(*s))
 		s++;
 	*out = n;
 	return (*s == '\0');

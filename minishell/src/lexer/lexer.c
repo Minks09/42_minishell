@@ -40,7 +40,7 @@ static int	word_len(char *s, int *len)
 	char	q;
 
 	i = 0;
-	while (s[i] && !ft_isspace(s[i]) && !is_meta(s[i]))
+	while (s[i] && !ms_isspace(s[i]) && !is_meta(s[i]))
 	{
 		if (s[i] == '\'' || s[i] == '"')
 		{
@@ -85,7 +85,7 @@ int	lexer(t_shell *sh, char *s)
 	i = 0;
 	while (s[i])
 	{
-		if (ft_isspace(s[i]))
+		if (ms_isspace(s[i]))
 		{
 			i++;
 			continue ;

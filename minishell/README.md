@@ -13,11 +13,9 @@ make fclean     # remove objects + binary
 make re         # rebuild
 ```
 
-On macOS with Homebrew readline:
-
-```bash
-make RL_INC="-I$(brew --prefix readline)/include" RL_LIB="-L$(brew --prefix readline)/lib -lreadline"
-```
+On macOS, install GNU readline with `brew install readline`; the Makefile
+picks it up automatically (the system readline is libedit and lacks
+`rl_clear_history` / `rl_replace_line`).
 
 ## Features
 
@@ -45,6 +43,9 @@ make RL_INC="-I$(brew --prefix readline)/include" RL_LIB="-L$(brew --prefix read
 | `exit`   | `exit [n]`, numeric check, `too many arguments`             |
 
 ## Architecture
+
+Detailed documentation with diagrams: start at [`src/README.md`](src/README.md),
+each `src/` sub-folder has its own `README.md`.
 
 ```
 line ──► lexer ──► syntax check ──► parser (+ expansion) ──► heredocs ──► executor

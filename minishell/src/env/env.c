@@ -14,7 +14,7 @@
 
 t_env	*env_find(t_env *env, char *key)
 {
-	while (env && ft_strcmp(env->key, key))
+	while (env && ms_strcmp(env->key, key))
 		env = env->next;
 	return (env);
 }
@@ -65,7 +65,7 @@ void	env_unset(t_shell *sh, char *key)
 
 	cur = sh->env;
 	prev = NULL;
-	while (cur && ft_strcmp(cur->key, key))
+	while (cur && ms_strcmp(cur->key, key))
 	{
 		prev = cur;
 		cur = cur->next;

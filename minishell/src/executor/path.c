@@ -65,7 +65,7 @@ static char	*search_path(char *name, char *path_env)
 		}
 		i++;
 	}
-	ft_free_arr(dirs);
+	ms_free_arr(dirs);
 	return (full);
 }
 
@@ -99,6 +99,6 @@ void	exec_external(t_shell *sh, char **argv)
 	execve(path, argv, envp);
 	ms_error(argv[0], strerror(errno), NULL);
 	free(path);
-	ft_free_arr(envp);
+	ms_free_arr(envp);
 	ms_exit(sh, 126);
 }

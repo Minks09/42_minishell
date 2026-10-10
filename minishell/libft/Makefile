@@ -1,32 +1,64 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: nachebbi <nachebbi@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/09/29 01:00:00 by nachebbi          #+#    #+#              #
+#    Updated: 2025/10/07 22:05:46 by nachebbi         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME	= libft.a
 
-CC		= cc
-CFLAGS	= -Wall -Wextra -Werror
+PNAME	= a.out
 
-SRCS	= ft_str.c \
-		  ft_str2.c \
-		  ft_mem.c \
-		  ft_char.c \
-		  ft_conv.c \
-		  ft_put.c \
-		  ft_split.c \
-		  ft_lst.c
-OBJS	= $(SRCS:.c=.o)
+#	SRCS NEEDED TO CREATE THE LIBRARY
+SRCS	= \
+		ft_strdup.c ft_itoa.c ft_atoi.c ft_bzero.c ft_calloc.c\
+		ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c\
+		ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c ft_memchr.c ft_memcmp.c\
+		ft_strlen.c ft_strlcpy.c ft_strlcat.c ft_strchr.c ft_strrchr.c\
+		ft_strncmp.c ft_strnstr.c ft_striteri.c\
+		ft_toupper.c ft_tolower.c ft_substr.c ft_strtrim.c ft_strmapi.c\
+		ft_strjoin.c ft_split.c\
+		ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c
+		
+#	SRCS TO COMPILE THE BONUSES TOO
+SRCS_B = \
+		ft_lstaddback_bonus.c ft_lstaddfront_bonus.c ft_lstclear_bonus.c\
+		ft_lstdelone_bonus.c ft_lstiter_bonus.c ft_lstlast_bonus.c ft_lstmap_bonus.c\
+		ft_lstnew_bonus.c ft_lstsize_bonus.c
 
-all: $(NAME)
+OBJS = ${SRCS:.c=.o}
 
-$(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+OBJS_B = ${SRCS_B:.c=.o}
 
-%.o: %.c libft.h
-	$(CC) $(CFLAGS) -c $< -o $@
+CC = cc
 
-clean:
-	rm -f $(OBJS)
+RM = rm -f
 
-fclean: clean
-	rm -f $(NAME)
+CFLAGS = -Wall -Werror -Wextra
 
-re: fclean all
+%.o: %.c
+	${CC} ${CFLAGS} -c $< -o $@
 
-.PHONY: all clean fclean re
+${NAME}: ${OBJS}
+		ar rcs ${NAME} ${OBJS}
+
+all:	${NAME}
+
+clean:	
+		${RM} ${OBJS} ${OBJS_B}
+
+fclean:	clean
+		${RM} ${NAME}
+
+re:		fclean all
+
+bonus:	$(OBJS) $(OBJS_B)
+		ar rcs $(NAME) $(OBJS) $(OBJS_B)
+
+.PHONY: all clean fclean re bonus
+.SILENT:

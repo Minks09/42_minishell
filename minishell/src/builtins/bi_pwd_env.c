@@ -47,7 +47,7 @@ int	bi_env(t_shell *sh, char **argv)
 		if (cur->value)
 		{
 			ft_putstr_fd(cur->key, STDOUT_FILENO);
-			write(STDOUT_FILENO, "=", 1);
+			ft_putchar_fd('=', STDOUT_FILENO);
 			ft_putendl_fd(cur->value, STDOUT_FILENO);
 		}
 		cur = cur->next;

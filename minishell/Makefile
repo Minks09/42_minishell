@@ -3,11 +3,20 @@ NAME		= minishell
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
 
-# Readline: override on macOS/brew, e.g.
-#   make RL_INC="-I$(brew --prefix readline)/include" \
-#        RL_LIB="-L$(brew --prefix readline)/lib -lreadline"
+# Readline: macOS ships libedit (no rl_clear_history/rl_replace_line),
+# so use GNU readline from Homebrew there. Linux: libreadline-dev.
+UNAME_S		:= $(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+RL_PREFIX	?= $(shell brew --prefix readline 2>/dev/null)
+ifeq ($(RL_PREFIX),)
+$(error GNU readline not found: run "brew install readline")
+endif
+RL_INC		?= -I$(RL_PREFIX)/include
+RL_LIB		?= -L$(RL_PREFIX)/lib -lreadline
+else
 RL_INC		?=
 RL_LIB		?= -lreadline
+endif
 
 LIBFT_DIR	= libft
 LIBFT		= $(LIBFT_DIR)/libft.a
@@ -44,7 +53,8 @@ SRCS		= main.c \
 			  builtins/bi_exit.c \
 			  env/env.c \
 			  env/env_utils.c \
-			  signals/signals.c
+			  signals/signals.c \
+			  utils/utils.c
 
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 DEPS		= $(OBJS:.o=.d)
@@ -59,7 +69,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c Makefile
 	$(CC) $(CFLAGS) $(INCLUDES) -MMD -MP -c $< -o $@
 
 $(LIBFT):
-	$(MAKE) -C $(LIBFT_DIR)
+	$(MAKE) -C $(LIBFT_DIR) bonus
 
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean

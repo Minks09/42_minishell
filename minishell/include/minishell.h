@@ -164,6 +164,11 @@ void	env_clear(t_env **env);
 int		env_size(t_env *env);
 char	**env_to_arr(t_env *env);
 
+/* utils */
+int		ms_strcmp(const char *s1, const char *s2);
+int		ms_isspace(int c);
+void	ms_free_arr(char **arr);
+
 /* signals */
 void	signals_interactive(int interactive);
 void	signals_ignore(void);

@@ -48,7 +48,7 @@ void	cmds_free(t_cmd **cmds)
 	while (*cmds)
 	{
 		next = (*cmds)->next;
-		ft_free_arr((*cmds)->argv);
+		ms_free_arr((*cmds)->argv);
 		redirs_free((*cmds)->redirs);
 		free(*cmds);
 		*cmds = next;

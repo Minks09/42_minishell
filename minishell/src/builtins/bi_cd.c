@@ -23,7 +23,7 @@ static char	*cd_target(t_shell *sh, char **argv)
 			ms_error("cd", "HOME not set", NULL);
 		return (target);
 	}
-	if (!ft_strcmp(argv[1], "-"))
+	if (!ms_strcmp(argv[1], "-"))
 	{
 		target = env_get(sh->env, "OLDPWD");
 		if (!target)
@@ -68,7 +68,7 @@ int	bi_cd(t_shell *sh, char **argv)
 		return (1);
 	}
 	update_pwd(sh, cwd);
-	if (argv[1] && !ft_strcmp(argv[1], "-"))
+	if (argv[1] && !ms_strcmp(argv[1], "-"))
 		bi_pwd(sh);
 	return (0);
 }

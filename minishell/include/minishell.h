@@ -35,8 +35,6 @@
 # define PROMPT "minishell$ "
 # define HD_PREFIX "/tmp/.minishell_heredoc_"
 
-extern volatile sig_atomic_t	g_signal;
-
 typedef enum e_type
 {
 	T_WORD,
@@ -173,5 +171,6 @@ void	ms_free_arr(char **arr);
 void	signals_interactive(int interactive);
 void	signals_ignore(void);
 void	signals_default(void);
+int		signal_take(void);
 
 #endif

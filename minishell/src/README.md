@@ -70,7 +70,8 @@ flowchart LR
   the Ctrl-C handler. When stdin is a pipe or a file (like in the tester),
   minishell reads raw lines and prints no prompt — exactly like bash.
 * The whole shell state lives in **one** stack variable `t_shell sh`, passed by
-  pointer everywhere. The only global is `g_signal` (see [signals](signals/README.md)).
+  pointer everywhere. The only global is `g_signal`, `static` inside `signals/signals.c` and read
+  through `signal_take()` (see [signals](signals/README.md)).
 
 ---
 

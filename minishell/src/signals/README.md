@@ -2,7 +2,7 @@
 
 | File | Functions | Role |
 |---|---|---|
-| [`signals.c`](signals.c) | `signals_interactive`, `signals_ignore`, `signals_default`, `on_sigint_prompt`* | Install the right handlers for each phase |
+| [`signals.c`](signals.c) | `signals_interactive`, `signals_ignore`, `signals_default`, `signal_take`, `on_sigint_prompt`* | Install the right handlers for each phase, report the last signal |
 
 `*` = `static`
 
@@ -22,12 +22,36 @@ Ctrl-D is **not** a signal: the terminal just reports end-of-file, so
 ## 1. The one global variable
 
 ```c
-volatile sig_atomic_t g_signal = 0;
+static volatile sig_atomic_t g_signal = 0;     // signals.c, the only global
 ```
 
 The subject allows exactly one global, used only to store the signal number.
-`volatile sig_atomic_t` guarantees the write in the handler and the read in
-the loop are safe. The handler never touches `t_shell`.
+
+* **`sig_atomic_t`** — an integer type that is read and written in one
+  uninterruptible operation, so the loop never sees a half-written value.
+* **`volatile`** — forces the compiler to re-read the variable from memory
+  each time, because a handler can change it at any moment.
+* **`static`** — the variable is visible **only inside `signals.c`**. No other
+  file can read or modify it, and there is no `extern` in `minishell.h`
+  (so norminette reports a single `GLOBAL_VAR_DETECTED` notice).
+
+The rest of the shell reads it through one function:
+
+```c
+int signal_take(void);   // returns the last signal received (0 if none) and resets it
+```
+
+```mermaid
+flowchart LR
+    subgraph SIG["signals.c"]
+      H["on_sigint_prompt()<br/>g_signal = sig"] --> G[("g_signal<br/>static")]
+      G --> T["signal_take()<br/>read, reset to 0, return"]
+    end
+    T --> L["shell_loop() in core/shell.c<br/>if SIGINT: status = 130"]
+```
+
+The handler only stores the number: it never touches `t_shell` (it cannot
+receive it as a parameter, and doing real work inside a handler is unsafe).
 
 ---
 
@@ -86,7 +110,7 @@ sequenceDiagram
     H->>R: rl_redisplay()          (show a fresh prompt)
     U->>R: types next line + Enter
     R->>L: returns the line
-    L->>L: g_signal == SIGINT → status = 130, g_signal = 0
+    L->>L: signal_take() == SIGINT → status = 130 (g_signal reset to 0)
     L->>L: process the line (echo $? → 130)
 ```
 

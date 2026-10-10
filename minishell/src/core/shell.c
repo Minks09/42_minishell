@@ -39,11 +39,8 @@ void	shell_loop(t_shell *sh)
 	{
 		signals_interactive(sh->interactive);
 		sh->line = read_input(sh);
-		if (g_signal == SIGINT)
-		{
+		if (signal_take() == SIGINT)
 			sh->status = 130;
-			g_signal = 0;
-		}
 		if (!sh->line)
 			break ;
 		if (sh->line[0] && sh->interactive)

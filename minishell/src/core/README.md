@@ -21,8 +21,8 @@ frees everything when the shell (or a child) leaves.
 flowchart TD
     S([shell_loop]) --> A["signals_interactive()<br/>install prompt handlers"]
     A --> B["sh->line = read_input()"]
-    B --> C{"g_signal == SIGINT ?<br/>(Ctrl-C hit at prompt)"}
-    C -->|yes| C1["status = 130<br/>g_signal = 0"]
+    B --> C{"signal_take() == SIGINT ?<br/>(Ctrl-C hit at prompt)"}
+    C -->|yes| C1["status = 130"]
     C -->|no| D
     C1 --> D{"line == NULL ?"}
     D -->|yes: Ctrl-D / EOF| X["if interactive: print exit<br/>leave loop"]

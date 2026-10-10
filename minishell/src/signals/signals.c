@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minks0x <minks0x@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nachebbi <nachebbi@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 23:00:00 by minks0x           #+#    #+#             */
-/*   Updated: 2026/09/28 23:00:00 by minks0x          ###   ########.fr       */
+/*   Updated: 2026/10/10 16:45:48 by nachebbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-volatile sig_atomic_t	g_signal = 0;
+static volatile sig_atomic_t	g_signal = 0;
 
 static void	on_sigint_prompt(int sig)
 {
@@ -36,6 +36,15 @@ void	signals_ignore(void)
 {
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
+}
+
+int	signal_take(void)
+{
+	int	sig;
+
+	sig = g_signal;
+	g_signal = 0;
+	return (sig);
 }
 
 void	signals_default(void)

@@ -90,7 +90,7 @@ old `$PWD` value.
 | `env` | Prints `KEY=value` for every variable **that has a value** (`export X` alone is hidden). | 0 |
 | `env arg` | `env: arg: No such file or directory` (no options/args in the subject) | 127 |
 | `unset A B` | Removes each name. Unknown names are ignored. | 0 |
-| `unset 1A` | ``unset: `1A': not a valid identifier``, continues with the others | 1 |
+| `unset 1A` | Silently ignored, like bash (without `-v`, bash's `unset` also accepts function names, which may contain any character) | 0 |
 
 ---
 

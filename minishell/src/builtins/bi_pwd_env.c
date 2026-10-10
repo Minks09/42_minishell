@@ -58,20 +58,13 @@ int	bi_env(t_shell *sh, char **argv)
 int	bi_unset(t_shell *sh, char **argv)
 {
 	int	i;
-	int	ret;
 
 	i = 1;
-	ret = 0;
 	while (argv[i])
 	{
-		if (!is_valid_name(argv[i], ft_strlen(argv[i])))
-		{
-			ms_error_id("unset", argv[i]);
-			ret = 1;
-		}
-		else
+		if (is_valid_name(argv[i], ft_strlen(argv[i])))
 			env_unset(sh, argv[i]);
 		i++;
 	}
-	return (ret);
+	return (0);
 }

@@ -1,8 +1,0 @@
-obj/
-*.o
-*.d
-*.a
-minishell
-/.vscode/
-/minishell_tester/
-/tests/

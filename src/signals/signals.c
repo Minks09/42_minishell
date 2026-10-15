@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nachebbi <nachebbi@42lausanne.ch>          +#+  +:+       +#+        */
+/*   By: akolomii <akolomii@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/28 23:00:00 by nachebbi          #+#    #+#             */
-/*   Updated: 2026/10/10 16:45:48 by nachebbi         ###   ########.fr       */
+/*   Created: 2026/10/15 16:27:42 by akolomii          #+#    #+#             */
+/*   Updated: 2026/10/15 16:27:42 by akolomii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

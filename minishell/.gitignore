@@ -1,6 +1,0 @@
-obj/
-*.o
-*.d
-*.a
-minishell
-/.vscode/

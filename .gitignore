@@ -1,1 +1,7 @@
+obj/
+*.o
+*.d
+*.a
+minishell
+/.vscode/
 /Subject Document.pdf
